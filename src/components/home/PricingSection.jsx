@@ -2,53 +2,68 @@ import React, { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
+import useIntersectionObserver from '../common/IntersectionObserver'
 
 const PricingSection = () => {
   const sectionRef = useRef(null)
+  const observerRef = useIntersectionObserver()
   
   gsap.registerPlugin(ScrollTrigger)
 
   useGSAP(() => {
-    gsap.fromTo('.pricing-title',
-      {
-        opacity: 0,
-        y: 50
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: '.pricing-title',
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        }
-      }
-    )
-
-    gsap.fromTo('.pricing-card',
-      {
-        opacity: 0,
-        y: 40,
-        scale: 0.95
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: "power2.out",
-        stagger: {
-          amount: 0.4
+    const ctx = gsap.context(() => {
+      // Enhanced pricing title animation
+      gsap.fromTo('.pricing-title',
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.95
         },
-        scrollTrigger: {
-          trigger: '.pricing-grid',
-          start: 'top 75%',
-          toggleActions: 'play none none none'
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: "back.out(1.7)",
+          force3D: true,
+          scrollTrigger: {
+            trigger: '.pricing-title',
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
         }
-      }
-    )
+      )
+
+      // Enhanced pricing cards with 3D rotation
+      gsap.fromTo('.pricing-card',
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.9,
+          rotationY: 25
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotationY: 0,
+          duration: 1,
+          ease: "back.out(1.7)",
+          force3D: true,
+          stagger: {
+            amount: 0.6,
+            from: 'center'
+          },
+          scrollTrigger: {
+            trigger: '.pricing-grid',
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      )
+    }, sectionRef)
+
+    return () => ctx.revert()
   })
 
   const pricingPlans = [
@@ -102,31 +117,35 @@ const PricingSection = () => {
   ]
 
   return (
-    <section id="pricing" ref={sectionRef} className='min-h-screen section-dark text-white relative depth-3 section-transition'>
+    <section 
+      id="pricing" 
+      ref={observerRef} 
+      className='min-h-screen section-dark text-white relative depth-3 section-transition gpu-accelerated'
+    >
       <div className="cinematic-overlay"></div>
       <div className='container mx-auto section-padding'>
         <div className='text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8'>
-          <h2 className='pricing-title font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow'>
+          <h2 className='pricing-title font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow fade-in-observer gpu-accelerated'>
             Pricing
           </h2>
-          <div className='floating-panel-dark max-width-content'>
+          <div className='floating-panel-dark max-width-content fade-in-observer gpu-accelerated'>
             <p className='font-[font1] text-responsive leading-relaxed text-layer-2'>
               Choisissez le forfait qui correspond parfaitement à votre vision et à votre budget.
             </p>
           </div>
         </div>
 
-        <div className='pricing-grid responsive-grid-3 max-width-wide'>
+        <div className='pricing-grid responsive-grid-3 max-width-wide fade-in-observer'>
           {pricingPlans.map((plan, index) => (
             <div 
               key={index}
               className={`pricing-card group floating-panel-dark glass-hover glass-click gpu-accelerated relative ${
-                plan.popular ? 'border-2 border-[#D3FD50] glow-accent' : ''
-              }`}
+                plan.popular ? 'border-2 border-[#D3FD50] glow-accent animate-glow-pulse' : ''
+              } fade-in-observer`}
             >
               {/* Popular Badge */}
               {plan.popular && (
-                <div className='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#D3FD50] to-[#b8e03e] text-black px-4 sm:px-6 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-[font2] uppercase tracking-wide glow-accent'>
+                <div className='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#D3FD50] to-[#b8e03e] text-black px-4 sm:px-6 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-[font2] uppercase tracking-wide glow-accent micro-bounce gpu-accelerated'>
                   Most Popular
                 </div>
               )}
@@ -171,7 +190,7 @@ const PricingSection = () => {
                     plan.popular 
                       ? 'btn-primary' 
                       : 'btn-secondary'
-                  }`}
+                  } gpu-accelerated`}
                 >
                   Get Started
                 </button>
@@ -185,7 +204,7 @@ const PricingSection = () => {
 
         {/* Additional Info */}
         <div className='text-center component-margin'>
-          <div className='floating-panel-dark max-width-content'>
+          <div className='floating-panel-dark max-width-content fade-in-observer gpu-accelerated'>
             <p className='font-[font1] text-responsive text-layer-1 mb-4 sm:mb-6'>
               Tous les forfaits incluent une consultation gratuite et un devis personnalisé.
             </p>
