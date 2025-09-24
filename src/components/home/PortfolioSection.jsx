@@ -2,26 +2,26 @@ import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { Link } from 'react-router-dom'
 
-// 🔹 Video data (same as your Projects page)
+// 🔹 Video data updated with provided links (rest remain same)
 const teasers = [
-  { videoId: 'dQw4w9WgXcQ' },
-  { videoId: 'jNQXAC9IVRw' },
-  { videoId: 'M7lc1UVf-VE' },
-  { videoId: 'ZZ5LpwO-An4' },
-  { videoId: 'kJQP7kiw5Fk' },
-  { videoId: 'tgbNymZ7vqY' },
-  { videoId: 'L_jWHffIx5E' },
-  { videoId: 'fJ9rUzIMcZQ' },
-  { videoId: 'QH2-TGUlwu4' },
-  { videoId: 'nfWlot6h_JM' },
-  { videoId: 'hFZFjoX2cGg' }
+  { videoId: 'QGsa5QB5gK4' }, // 1
+  { videoId: '5fR4MErzYeI' }, // 2
+  { videoId: '2qFnRXpSFn8' }, // 3
+  { videoId: '7bZ5MKY6pfU' }, // 4
+  { videoId: 'QstSPHan4oE' }, // 5
+  { videoId: 'HMJyD-kPWek' }, // 6
+  { videoId: 'zd5De3LAMQc' }, // 7
+  { videoId: 'HMJyD-kPWek' }, // 8 (duplicate from your list)
+  { videoId: 'YM1TZnbcbOs' }, // 9
+  { videoId: 'pRya97qUJMs' }, // 10
+  { videoId: 'AqqGxOrwv_g' }  // 11
 ]
 
 const highlights = [
-  { videoId: 'ScMzIvxBSi4' },
-  { videoId: 'CevxZvSJLk8' },
-  { videoId: 'kffacxfA7G4' },
-  { videoId: 'qeMFqkcPYcg' },
+  { videoId: '2qFnRXpSFn8' }, // 12
+  { videoId: 'dRjCKw7YonM' }, // 13 (short link)
+  { videoId: 'L9PMwOelcRk' }, // 14 (short link)
+  { videoId: 'qeMFqkcPYcg' }, // unchanged
   { videoId: 'SQoA_wjmE9w' },
   { videoId: 'ZbZSe6N_BXs' },
   { videoId: 'HEXWRTEbj1I' },
