@@ -55,14 +55,54 @@ const Home = () => {
     gsap.fromTo('.hero-content', 
       {
         opacity: 0,
-        y: 30
+        y: 40,
+        scale: 0.95,
+        filter: 'blur(10px)'
       },
       {
         opacity: 1,
         y: 0,
+        scale: 1,
+        filter: 'blur(0px)',
+        duration: 1.8,
+        ease: "expo.out",
+        delay: 0.2
+      }
+    )
+    
+    // Animate individual text elements with stagger
+    gsap.fromTo('.animate-fade-in-up', 
+      {
+        opacity: 0,
+        y: 60,
+        rotationX: 15
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
         duration: 1.2,
-        ease: "power2.out",
-        delay: 0.5
+        ease: "back.out(1.7)",
+        stagger: 0.2,
+        delay: 0.8
+      }
+    )
+    
+    // Animate video container with special effect
+    gsap.fromTo('.animate-fade-in-scale', 
+      {
+        opacity: 0,
+        scale: 0.8,
+        rotationY: 20
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        duration: 1.5,
+        ease: "elastic.out(1, 0.5)",
+        stagger: 0.15,
+        delay: 1.2
       }
     )
   })
@@ -73,16 +113,16 @@ const Home = () => {
       <Header />
       
       {/* Fixed video background */}
-      <div className='h-screen h-[100dvh] w-screen fixed top-0 left-0 z-0 overflow-hidden'>
+      <div className='h-screen h-[100dvh] w-screen fixed top-0 left-0 z-0 overflow-hidden gpu-accelerated'>
         <Video />
         {/* Dark overlay for better text readability */}
-        <div className='absolute inset-0 bg-black/50 sm:bg-black/40 lg:bg-black/30 z-10'></div>
+        <div className='absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/50 z-10 gpu-accelerated'></div>
       </div>
       
       {/* Scrollable content */}
       <div className='relative z-20'>
         {/* Hero Section */}
-        <div ref={heroSectionRef} className='h-screen h-[100dvh] w-screen relative flex flex-col hero-content'>
+        <div ref={heroSectionRef} className='h-screen h-[100dvh] w-screen relative flex flex-col hero-content gpu-accelerated'>
           <HomeHeroText />
         </div>
         

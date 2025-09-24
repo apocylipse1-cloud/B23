@@ -23,14 +23,21 @@ const PageWrapper = ({ children, className = '' }) => {
 
     gsap.fromTo(
       pageRef.current.children,
-      { opacity: 0, y: 20 },
+      { 
+        opacity: 0, 
+        y: 30,
+        scale: 0.98,
+        filter: 'blur(5px)'
+      },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        stagger: 0.1,
-        delay: 0.3,
+        scale: 1,
+        filter: 'blur(0px)',
+        duration: 1.2,
+        ease: 'expo.out',
+        stagger: 0.15,
+        delay: 0.2,
       }
     )
   }, [location.pathname])
@@ -38,7 +45,7 @@ const PageWrapper = ({ children, className = '' }) => {
   return (
     <>
       <BackToHome />
-      <div ref={pageRef} className={`min-h-screen ${className}`} style={{ opacity: 1 }}>
+      <div ref={pageRef} className={`min-h-screen ${className} gpu-accelerated`} style={{ opacity: 1 }}>
         {children}
       </div>
     </>

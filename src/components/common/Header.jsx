@@ -46,14 +46,16 @@ const Header = () => {
     gsap.fromTo(headerRef.current,
       {
         opacity: 0,
-        y: -20
+        y: -20,
+        filter: 'blur(10px)'
       },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: "power2.out",
-        delay: 0.8
+        filter: 'blur(0px)',
+        duration: 1.2,
+        ease: "expo.out",
+        delay: 0.3
       }
     )
 
@@ -61,15 +63,17 @@ const Header = () => {
     gsap.fromTo('.nav-item-animate',
       {
         opacity: 0,
-        y: -10
+        y: -15,
+        scale: 0.9
       },
       {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-        ease: "power2.out",
-        stagger: 0.1,
-        delay: 1.2
+        scale: 1,
+        duration: 0.8,
+        ease: "back.out(1.7)",
+        stagger: 0.08,
+        delay: 0.8
       }
     )
   }, [])
@@ -97,7 +101,7 @@ const Header = () => {
       <header 
         ref={headerRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out w-full ${
-          isScrolled ? 'backdrop-blur-md bg-black/20' : 'bg-transparent'
+          isScrolled ? 'backdrop-blur-xl bg-black/30' : 'bg-transparent'
         }`}
         style={{ zIndex: isMobileMenuOpen ? 30 : 1000 }}
       >
@@ -112,14 +116,14 @@ const Header = () => {
             <div className="nav-item-animate flex-shrink-0">
               <Link 
                 to="/"
-                className="flex items-center space-x-3 group"
+                className="flex items-center space-x-3 group micro-lift"
               >
                 {/* Logo container - replace logo.png in public folder to change logo */}
                 <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex items-center justify-center micro-bounce">
                   <img 
                     src="/logo.png" 
                     alt="Amoura Works Logo" 
-                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-3"
                     onError={(e) => {
                       // Fallback if logo file is missing
                       e.target.style.display = 'none';
@@ -143,7 +147,7 @@ const Header = () => {
                     </div>
                   </div>
                 </div>
-                <span className="font-[font2] text-lg sm:text-xl lg:text-2xl text-white uppercase tracking-wide">
+                <span className="font-[font2] text-lg sm:text-xl lg:text-2xl text-white uppercase tracking-wide transition-all duration-300 group-hover:text-[#D3FD50]">
                   Amoura Works
                 </span>
               </Link>
@@ -156,18 +160,18 @@ const Header = () => {
                   {item.href.startsWith('#') ? (
                     <button
                       onClick={(e) => handleSmoothScroll(e, item.href)}
-                      className="nav-link font-[font2] text-sm lg:text-base xl:text-lg text-white uppercase tracking-wide relative group"
+                      className="nav-link font-[font2] text-sm lg:text-base xl:text-lg text-white uppercase tracking-wide relative group micro-lift"
                     >
                       {item.name}
-                      <span className="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 ease-out group-hover:w-full" />
+                      <span className="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#D3FD50] to-[#b8e03e] transition-all duration-500 ease-out group-hover:w-full glow-accent" />
                     </button>
                   ) : (
                     <Link
                       to={item.href}
-                      className="nav-link font-[font2] text-sm lg:text-base xl:text-lg text-white uppercase tracking-wide relative group"
+                      className="nav-link font-[font2] text-sm lg:text-base xl:text-lg text-white uppercase tracking-wide relative group micro-lift"
                     >
                       {item.name}
-                      <span className="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 ease-out group-hover:w-full" />
+                      <span className="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#D3FD50] to-[#b8e03e] transition-all duration-500 ease-out group-hover:w-full glow-accent" />
                     </Link>
                   )}
                 </div>
@@ -177,7 +181,7 @@ const Header = () => {
               <div className="nav-item-animate">
                 <Link
                   to="/affiliate-program"
-                  className="affiliate-btn font-[font2] text-xs lg:text-sm xl:text-base text-white uppercase tracking-wide px-4 lg:px-6 py-2 lg:py-3 border border-gray-400 rounded-full transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-95"
+                  className="affiliate-btn font-[font2] text-xs lg:text-sm xl:text-base text-white uppercase tracking-wide px-4 lg:px-6 py-2 lg:py-3 border border-gray-400 rounded-full transition-all duration-500 ease-out hover:scale-105 hover:shadow-lg hover:shadow-[#D3FD50]/20 hover:border-[#D3FD50] hover:text-[#D3FD50] active:scale-95 micro-glow"
                 >
                   Become an Affiliate
                 </Link>
@@ -188,12 +192,12 @@ const Header = () => {
             <div className="lg:hidden nav-item-animate mobile-menu-container">
               <button 
                 onClick={toggleMobileMenu}
-                className="w-12 h-12 flex flex-col items-center justify-center space-y-1.5 group p-2 relative z-50"
+                className="w-12 h-12 flex flex-col items-center justify-center space-y-1.5 group p-2 relative z-50 micro-lift"
                 aria-label="Toggle mobile menu"
               >
-                <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : 'group-hover:w-6'}`} />
-                <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : 'group-hover:w-6'}`} />
-                <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : 'group-hover:w-6'}`} />
+                <span className={`w-5 h-0.5 bg-white transition-all duration-500 ease-out ${isMobileMenuOpen ? 'rotate-45 translate-y-2 bg-[#D3FD50]' : 'group-hover:w-6 group-hover:bg-[#D3FD50]'}`} />
+                <span className={`w-5 h-0.5 bg-white transition-all duration-500 ease-out ${isMobileMenuOpen ? 'opacity-0' : 'group-hover:w-6 group-hover:bg-[#D3FD50]'}`} />
+                <span className={`w-5 h-0.5 bg-white transition-all duration-500 ease-out ${isMobileMenuOpen ? '-rotate-45 -translate-y-2 bg-[#D3FD50]' : 'group-hover:w-6 group-hover:bg-[#D3FD50]'}`} />
               </button>
             </div>
           </nav>
@@ -201,17 +205,17 @@ const Header = () => {
       </header>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-50 lg:hidden transition-all duration-300 ease-out ${
+      <div className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ease-out ${
         isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
         {/* Background Overlay */}
         <div 
-          className="absolute inset-0 bg-black/80 backdrop-blur-md"
+          className="absolute inset-0 bg-black/80 backdrop-blur-xl transition-all duration-500"
           onClick={() => setIsMobileMenuOpen(false)}
         />
         
         {/* Mobile Menu Content */}
-        <div className={`absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-black/95 backdrop-blur-xl border-l border-white/10 transform transition-transform duration-300 ease-out z-60 ${
+        <div className={`absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-black/95 backdrop-blur-xl border-l border-white/10 transform transition-transform duration-700 ease-out z-60 ${
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
           {/* Menu Header */}
@@ -233,18 +237,18 @@ const Header = () => {
                 {item.href.startsWith('#') ? (
                   <button
                     onClick={(e) => handleSmoothScroll(e, item.href)}
-                    className="w-full text-left font-[font2] text-lg text-white uppercase tracking-wide py-3 px-4 rounded-lg transition-all duration-300 hover:bg-white/5 hover:text-[#D3FD50] relative group"
+                    className="w-full text-left font-[font2] text-lg text-white uppercase tracking-wide py-3 px-4 rounded-lg transition-all duration-500 hover:bg-white/5 hover:text-[#D3FD50] relative group micro-lift"
                   >
                     {item.name}
-                    <span className="absolute bottom-0 left-4 w-0 h-0.5 bg-[#D3FD50] transition-all duration-300 group-hover:w-8" />
+                    <span className="absolute bottom-0 left-4 w-0 h-0.5 bg-[#D3FD50] transition-all duration-500 group-hover:w-8 glow-accent" />
                   </button>
                 ) : (
                   <Link
                     to={item.href}
-                    className="block font-[font2] text-lg text-white uppercase tracking-wide py-3 px-4 rounded-lg transition-all duration-300 hover:bg-white/5 hover:text-[#D3FD50] relative group"
+                    className="block font-[font2] text-lg text-white uppercase tracking-wide py-3 px-4 rounded-lg transition-all duration-500 hover:bg-white/5 hover:text-[#D3FD50] relative group micro-lift"
                   >
                     {item.name}
-                    <span className="absolute bottom-0 left-4 w-0 h-0.5 bg-[#D3FD50] transition-all duration-300 group-hover:w-8" />
+                    <span className="absolute bottom-0 left-4 w-0 h-0.5 bg-[#D3FD50] transition-all duration-500 group-hover:w-8 glow-accent" />
                   </Link>
                 )}
               </div>
@@ -255,7 +259,7 @@ const Header = () => {
               <Link
                 to="/affiliate-program"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full text-center font-[font2] text-sm text-white uppercase tracking-wide px-6 py-3 border border-gray-400 rounded-full transition-all duration-300 hover:bg-[#D3FD50] hover:text-black hover:border-[#D3FD50]"
+                className="block w-full text-center font-[font2] text-sm text-white uppercase tracking-wide px-6 py-3 border border-gray-400 rounded-full transition-all duration-500 hover:bg-[#D3FD50] hover:text-black hover:border-[#D3FD50] micro-scale"
               >
                 Become an Affiliate
               </Link>

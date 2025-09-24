@@ -49,23 +49,23 @@ const PortfolioSection = () => {
     gsap.to(trackRef.current, {
       xPercent: -50, // move half its width
       repeat: -1,
-      duration: 40, // adjust speed
-      ease: "linear"
+      duration: 60, // slower, more elegant speed
+      ease: "none"
     })
   }, [])
 
   return (
     <section
       id="portfolio"
-      className="min-h-screen section-dark-alt text-white relative depth-3 overflow-hidden section-transition"
+      className="min-h-screen section-dark-alt text-white relative depth-3 overflow-hidden section-transition gpu-accelerated"
     >
       <div className="cinematic-overlay"></div>
       <div className="container mx-auto section-padding">
         <div className="text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8">
-          <h2 className="font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow">
+          <h2 className="font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow fade-in-observer">
             Our Portfolio
           </h2>
-          <div className="floating-panel-dark max-width-content">
+          <div className="floating-panel-dark max-width-content fade-in-observer">
             <p className="font-[font1] text-responsive leading-relaxed text-layer-2">
               Découvrez notre collection de films de mariage cinématographiques
             </p>
@@ -75,17 +75,17 @@ const PortfolioSection = () => {
         <div className="portfolio-showcase space-y-12 sm:space-y-16 lg:space-y-20">
           
           {/* Moving Video Track */}
-          <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-pattern-dots">
+          <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-pattern-dots fade-in-observer">
             <div
               ref={trackRef}
-              className="flex gap-4 sm:gap-6 lg:gap-8 xl:gap-12 w-[200%] py-4 sm:py-6 lg:py-8" // doubled width for seamless loop
+              className="flex gap-4 sm:gap-6 lg:gap-8 xl:gap-12 w-[200%] py-4 sm:py-6 lg:py-8 gpu-accelerated" // doubled width for seamless loop
             >
               {[...allVideos, ...allVideos].map((video, index) => (
                 <div 
                   key={index}
-                  className="video-card flex-shrink-0 w-64 sm:w-72 lg:w-80 xl:w-96 video-glass gpu-accelerated"
+                  className="video-card flex-shrink-0 w-64 sm:w-72 lg:w-80 xl:w-96 video-glass gpu-accelerated micro-scale"
                 >
-                  <div className="relative aspect-video bg-black rounded-lg sm:rounded-xl overflow-hidden">
+                  <div className="relative aspect-video bg-black rounded-lg sm:rounded-xl overflow-hidden gpu-accelerated">
                     <iframe
                       className="absolute top-0 left-0 w-full h-full"
                       src={`https://www.youtube.com/embed/${video.videoId}?autoplay=0&mute=1&controls=1&modestbranding=1&rel=0&showinfo=0`}
@@ -102,10 +102,10 @@ const PortfolioSection = () => {
           </div>
 
           {/* Portfolio Button */}
-          <div className="text-center">
+          <div className="text-center fade-in-observer">
             <Link 
               to="/projects"
-              className="btn-pill btn-primary h-12 sm:h-16 lg:h-20 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group"
+              className="btn-pill btn-primary h-12 sm:h-16 lg:h-20 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group micro-lift"
             >
               <span className="font-[font2] text-base sm:text-xl lg:text-2xl">
                 View Our Portfolio
